@@ -41,6 +41,10 @@ export const appController = async (app, express) => {
 
     connectionDb();
 
+    app.get("/", (req, res) => {
+        return res.status(200).json({ message: "Welcome to Job Search App" });
+    });
+
 
     app.use("*", (req, res, next) => {
         return next(new Error("Not Found", { cause: 404 }));

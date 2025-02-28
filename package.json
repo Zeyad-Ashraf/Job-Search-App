@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "20.17.0"
+  },
   "scripts": {
-    "start": "nodemon --env-file=config/.env index.js",
+    "start": "node --watch index.js",
+    "dev": "nodemon --env-file=config/.env index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
