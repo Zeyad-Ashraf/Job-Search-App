@@ -7,6 +7,7 @@ import * as adminSchema from "./admin.Schema.js";
 import { enumRole } from "../../DB/models/user.model.js";
 import { createHandler } from 'graphql-http/lib/use/express';
 import { schema } from "./graphSchema.js";
+import expressPlayground from "graphql-playground-middleware-express";
 
 const adminRouter = Router();
 
@@ -17,5 +18,7 @@ adminRouter.patch("/banOrUnbanCompany", authentication, authorization([enumRole.
 adminRouter.patch("/approveCompany", authentication, authorization([enumRole.admin]), validation(adminSchema.banOrUnbanUserSchema), asyncHandler(adminService.approveCompany));
 
 adminRouter.use("/graphql", createHandler({ schema }));
+
+adminRouter.use("/playground", expressPlayground.default({ endpoint: "/admin/graphql" }));
 
 export default adminRouter;
