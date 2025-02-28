@@ -6,6 +6,8 @@ import { validation } from "../../middlewares/validation.js";
 import * as appSchema from "./app.Schema.js";
 import { multerCloudinary } from "../../middlewares/multer.js";
 import { fileTypes } from "../../middlewares/multer.js";
+import * as jobSchema from "../jobs/job.Schema.js";
+
 
 
 
@@ -13,7 +15,7 @@ const appRouter = Router({ mergeParams: true });
 
 appRouter.get("/", authentication, asyncHandler(appService.getTheJob));
 
-appRouter.post("/addApplication",multerCloudinary([...fileTypes.pdf]).single("userCV"), authentication, asyncHandler(appService.addAplication));
+appRouter.post("/addApplication",multerCloudinary([...fileTypes.pdf]).single("userCV"), authentication,validation(appSchema.addApplicationSchema), asyncHandler(appService.addAplication));
 
 appRouter.get("/getApplication", authentication, asyncHandler(appService.getApplications));
 
