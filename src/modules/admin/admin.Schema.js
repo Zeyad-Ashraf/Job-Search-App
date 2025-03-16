@@ -5,5 +5,5 @@ export const banOrUnbanUserSchema = {
     body: joi.object({
         id: generalRules.objectId.required()
     }),
-    headers: generalRules.headers.required()
+    headers: generalRules.headers.required().unknown(true)
 }

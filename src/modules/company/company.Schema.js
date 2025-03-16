@@ -12,7 +12,7 @@ export const addCompanySchema = {
         numberOfEmployees: joi.string().valid(...Object.values(enumNumberOfEmployees)).required(),
         companyEmail: joi.string().email({tlds:true , minDomainSegments:2 ,maxDomainSegments:4}).message("you must enter valid email").required(),
     }),
-    headers: generalRules.headers.required(),
+    headers: generalRules.headers.required().unknown(true),
     file:generalRules.file.required()
 }
 
@@ -29,7 +29,7 @@ export const updateCompanySchema = {
     params: joi.object({
         id: generalRules.objectId.required()
     }),
-    headers: generalRules.headers.required()
+    headers: generalRules.headers.required().unknown(true)
 }
 
 
@@ -37,7 +37,7 @@ export const softDeleteCompanySchema = {
     params: joi.object({
         id: generalRules.objectId.required()
     }),
-    headers: generalRules.headers.required()
+    headers: generalRules.headers.required().unknown(true)
 }
 
 
@@ -45,7 +45,7 @@ export const findCompany = {
     body: joi.object({
         companyName: joi.string().required()
     }),
-    headers: generalRules.headers.required()
+    headers: generalRules.headers.required().unknown(true)
 }
 
 
@@ -53,16 +53,16 @@ export const findCompanJobsSchema = {
     params: joi.object({
         id: generalRules.objectId.required()
     }).required(),
-    headers: generalRules.headers.required()
+    headers: generalRules.headers.required().unknown(true)
 }
 
 
 export const uplaodLogoSchema = {
-    headers: generalRules.headers.required(),
+    headers: generalRules.headers.required().unknown(true),
     file:generalRules.file.required()
 }
 
 
 export const deleteLogoPicSchema = {
-    headers: generalRules.headers.required()
+    headers: generalRules.headers.required().unknown(true)
 }
