@@ -6,7 +6,6 @@ import { validation } from "../../middlewares/validation.js";
 import * as appSchema from "./app.Schema.js";
 import { multerCloudinary } from "../../middlewares/multer.js";
 import { fileTypes } from "../../middlewares/multer.js";
-import * as jobSchema from "../jobs/job.Schema.js";
 
 
 

@@ -33,6 +33,38 @@ export const appController = async (app, express) => {
 
     app.use(express.urlencoded({ extended: true }));
 
+    app.use((req, res, next) => {
+    const headersToRemove = [
+        "forwarded",
+        "x-vercel-ip-country",
+        "x-vercel-proxy-signature-ts",
+        "x-vercel-ja4-digest",
+        "x-forwarded-host",
+        "x-forwarded-proto",
+        "x-vercel-deployment-url",
+        "x-forwarded-for",
+        "x-vercel-internal-ingress-bucket",
+        "x-vercel-ip-as-number",
+        "x-vercel-proxied-for",
+        "x-vercel-ip-longitude",
+        "x-vercel-proxy-signature",
+        "x-vercel-ip-timezone",
+        "x-vercel-ip-continent",
+        "x-real-ip",
+        "x-vercel-forwarded-for",
+        "x-vercel-ip-latitude",
+        "x-vercel-id",
+        "x-vercel-ip-country-region",
+        "x-vercel-ip-city",
+        "referer"
+    ];
+
+    headersToRemove.forEach(header => delete req.headers[header]);
+
+    next();
+});
+
+
     app.use("/auth", authRouter);
     app.use("/users", userRouter);
     app.use("/company", companyRouter);
