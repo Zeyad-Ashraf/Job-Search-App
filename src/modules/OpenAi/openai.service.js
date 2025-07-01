@@ -12,7 +12,7 @@ export const startChat = asyncHandler(async (req,res,next) =>{
     const messages = [
         {
             role: enumRole.system,
-            content: `You are a professional technical interviewer. Interview the user based on the following CV and job title:\nCV: ${cv}\nJob Title: ${jobTitle}`,
+            content: `You are a professional technical interviewer. Interview the user based on the following CV and job title:\nCV: ${cv}\nJob Title: ${jobTitle} only 15 question`,
         },
         {
             role: enumRole.user,
@@ -30,7 +30,7 @@ export const startChat = asyncHandler(async (req,res,next) =>{
         const completion = await axios.post(
             "https://openrouter.ai/api/v1/chat/completions",
             {
-                model: "qwen/qwen2.5-vl-72b-instruct:free",
+                model: "mistralai/mistral-7b-instruct",
                 messages,
             },
             {
@@ -64,7 +64,7 @@ export const continueChat = asyncHandler(async (req, res) => {
     const completion = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
-        model: "qwen/qwen2.5-vl-72b-instruct:free", // أو أي موديل تاني متاح
+        model: "mistralai/mistral-7b-instruct", // أو أي موديل تاني متاح
         messages,
       },
       {
