@@ -145,7 +145,6 @@ export const displayJobs = async (req, res, next) => {
 }
 
 
-
 export const getJob = async (req, res, next) => {
     
     if (!req.user)

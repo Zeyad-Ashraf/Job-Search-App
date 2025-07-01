@@ -4,7 +4,6 @@ import { hashing } from '../encryption/hashing.js';
 import { sendMail } from '../../service/index.js';
 import { userModel } from '../../DB/models/user.model.js';
 import { signToken } from '../tokens/signToken.js';
-import e from 'express';
 import { applicationModel, enumApplicationStatus } from '../../DB/models/application.model.js';
 
 export const eventEmitter = new EventEmitter();

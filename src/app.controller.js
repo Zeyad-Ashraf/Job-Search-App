@@ -5,6 +5,7 @@ import { authRouter } from './modules/auth/user.controller.js';
 import userRouter from './modules/users/users.controller.js';
 import companyRouter from './modules/company/company.controller.js';
 import adminRouter from './modules/admin/admin.controller.js';
+import openAiRouter from './modules/OpenAi/openai.controller.js';
 import helmet from "helmet";
 import cors from "cors"
 import "./cronJobs/otpCleanUp.js";
@@ -37,6 +38,7 @@ export const appController = async (app, express) => {
     app.use("/users", userRouter);
     app.use("/company", companyRouter);
     app.use("/admin", adminRouter);
+    app.use("/mock-interview", openAiRouter);
     
 
     connectionDb();

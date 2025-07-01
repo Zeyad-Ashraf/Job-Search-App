@@ -14,7 +14,9 @@ export const enumGender = {
 
 export const enumRole = {
     admin: 'admin',
-    user: 'user'
+    user: 'user',
+    system: 'system',
+    assistant: 'assistant',
 }
 
 const userSchema = new mongoose.Schema({
