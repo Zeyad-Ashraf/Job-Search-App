@@ -4,8 +4,8 @@ import * as OpenaiServices from "./openai.service.js";
 const openAiRouter = Router();
 
 
-openAiRouter.post('/start', /*authentication,*/ OpenaiServices.startChat)
-openAiRouter.post('/continue', /*authentication,*/ OpenaiServices.continueChat)
+openAiRouter.post('/start', authentication, OpenaiServices.startChat)
+openAiRouter.post('/continue', authentication, OpenaiServices.continueChat)
 
 
 

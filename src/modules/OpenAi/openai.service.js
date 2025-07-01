@@ -3,8 +3,8 @@ import { asyncHandler, /*openai*/ openRouter } from "../../utils/index.js";
 import axios from "axios";
 
 export const startChat = asyncHandler(async (req,res,next) =>{
-    // if (!req.user)
-    // return next(new Error("Unauthorized", { cause: 401 }));
+    if (!req.user)
+    return next(new Error("Unauthorized", { cause: 401 }));
     const { cv, jobTitle } = req.body;
     if(!cv || !jobTitle)
         return next(new Error("paste your skills and job title", { cause: 400}));
@@ -54,6 +54,8 @@ export const startChat = asyncHandler(async (req,res,next) =>{
 })
 
 export const continueChat = asyncHandler(async (req, res) => {
+  if(!req.user)
+    return next(new Error("Unauthorized", {cause: 401}));
   const { messages } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
