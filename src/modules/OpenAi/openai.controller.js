@@ -5,6 +5,7 @@ const openAiRouter = Router();
 
 
 openAiRouter.post('/start', /*authentication,*/ OpenaiServices.startChat)
+openAiRouter.post('/continue', /*authentication,*/ OpenaiServices.continueChat)
 
 
 

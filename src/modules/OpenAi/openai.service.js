@@ -5,8 +5,9 @@ import axios from "axios";
 export const startChat = asyncHandler(async (req,res,next) =>{
     // if (!req.user)
     // return next(new Error("Unauthorized", { cause: 401 }));
-
     const { cv, jobTitle } = req.body;
+    if(!cv || !jobTitle)
+        return next(new Error("paste your skills and job title", { cause: 400}));
 
     const messages = [
         {
@@ -18,7 +19,6 @@ export const startChat = asyncHandler(async (req,res,next) =>{
             content: 'I am ready. Please start the interview.',
         }
     ];
-
     try {
         // Integration with openAi Paid
         // const completion = await openai.chat.completions.create({
@@ -42,7 +42,6 @@ export const startChat = asyncHandler(async (req,res,next) =>{
             }
         );
 
-
         const firstQuestion = completion.data.choices[0].message.content;
         messages.push({ role: enumRole.assistant, content: firstQuestion });
         
@@ -53,3 +52,37 @@ export const startChat = asyncHandler(async (req,res,next) =>{
         });
     }
 })
+
+export const continueChat = asyncHandler(async (req, res) => {
+  const { messages } = req.body;
+
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: "Messages are required." });
+  }
+
+  try {
+    const completion = await axios.post(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        model: "qwen/qwen2.5-vl-72b-instruct:free", // أو أي موديل تاني متاح
+        messages,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "http://localhost:3000",
+        },
+      }
+    );
+
+    const reply = completion.data.choices[0].message.content;
+    messages.push({ role: "assistant", content: reply });
+
+    return res.status(200).json({ reply, messages });
+  } catch (err) {
+    res.status(500).json({
+      error: err?.response?.data || "Failed to continue interview",
+    });
+  }
+});
