@@ -1,5 +1,3 @@
-
-
 import { enumProvider, userModel,enumRole } from "../../DB/models/user.model.js";
 import { findUser , eventEmitter,compare,verifyToken,signToken,hashing } from "../../utils/index.js";
 import { decodedToken } from "../../middlewares/auth.js";
@@ -30,7 +28,6 @@ export const signUp = async (req, res, next) => {
     });
 
     eventEmitter.emit("otp-email", { email });
-
     return res.status(200).json({ msg: "success"});
 }
 

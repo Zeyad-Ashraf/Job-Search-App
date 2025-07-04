@@ -19,7 +19,18 @@ export const enumRole = {
     assistant: 'assistant',
 }
 
+export const enumPayment = {
+    subscribed: 'subscribed',
+    cancelled: 'cancelled',
+    free: 'free',
+}
+
 const userSchema = new mongoose.Schema({
+    payment: {
+        type: String,
+        enum: Object.values(enumPayment),
+        default: enumPayment.free
+    },
     firstName: {
         type: String
     },
@@ -77,6 +88,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    subscriptionId:{
+        type: String,
+        index: true,
+    },
     changeCredentailTime: {
         type: Date
     },
@@ -131,6 +146,6 @@ userSchema.post("find", async function (docs) {
 userSchema.virtual('fullName').get(function () {
     return `${this.firstName} ${this.lastName}`
 })
-
+userSchema.index({email: 1, payment: 1});
 
 export const userModel = mongoose.model.user || mongoose.model('user', userSchema);

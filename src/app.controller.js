@@ -9,6 +9,7 @@ import openAiRouter from './modules/OpenAi/openai.controller.js';
 import helmet from "helmet";
 import cors from "cors"
 import "./cronJobs/otpCleanUp.js";
+import PaymentRouter from './modules/subscribe/subscribe.controller.js';
 
 
 const ratelimit = rateLimit({
@@ -39,6 +40,7 @@ export const appController = async (app, express) => {
     app.use("/company", companyRouter);
     app.use("/admin", adminRouter);
     app.use("/mock-interview", openAiRouter);
+    app.use("/payment", PaymentRouter)
     
 
     connectionDb();
